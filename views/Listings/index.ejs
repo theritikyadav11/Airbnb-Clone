@@ -1,0 +1,212 @@
+<% layout("/Layouts/boilerplate") %>
+<style>
+  .filters {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1rem 0;
+    gap: 1rem;
+    padding: 0.5rem;
+    flex-wrap: nowrap; /* Prevent wrapping */
+  }
+
+  /* Scrollable Icons */
+  .start {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    overflow-x: scroll; /* Keep scrolling */
+    white-space: nowrap;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Hide scrollbar for Webkit browsers (Chrome, Safari) */
+  .start::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for Firefox */
+  .start {
+    scrollbar-width: none;
+  }
+
+  /* Hide scrollbar for IE and Edge */
+  .start {
+    -ms-overflow-style: none;
+  }
+
+  /* Hide scrollbar (Optional) */
+  /* .start::-webkit-scrollbar {
+    height: 1px;
+  } */
+  /* .start::-webkit-scrollbar-thumb {
+    background: #aaa;
+    border-radius: 10px;
+  }
+  .start::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  } */
+
+  .filter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 80px;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 8px;
+    transition: background 0.3s ease;
+  }
+
+  .filter:hover {
+    background: rgba(0, 0, 0, 0.1);
+  }
+
+  /* Right-aligned toggle switch */
+  .end {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-width: max-content;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-left: auto;
+    flex-shrink: 0; /* Prevent shrinking */
+    border: 1px solid black;
+  }
+
+  /* Fix toggle switch alignment */
+  .toggle-label {
+    font-size: 0.9rem;
+    font-weight: bold;
+    white-space: nowrap;
+    margin-left: 1rem;
+  }
+
+  .toggle-btn {
+    width: 40px;
+    height: 20px;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .filters {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .start {
+      justify-content: flex-start;
+    }
+    .end {
+      width: 100%;
+      justify-content: space-between;
+    }
+    .filter:hover {
+      background: rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  .tax-info {
+    display: none;
+  }
+  .toggle-div {
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 0.6rem;
+  }
+</style>
+<body>
+  <div class="filters">
+    <div class="start">
+      <div class="filter">
+        <i class="fa-solid fa-fire"></i>
+        <p>Trending</p>
+      </div>
+      <div class="filter">
+        <i class="fa-solid fa-star"></i>
+        <p>Top Rated</p>
+      </div>
+      <div class="filter">
+        <i class="fa-solid fa-heart"></i>
+        <p>Popular</p>
+      </div>
+      <div class="filter">
+        <i class="fa-solid fa-thumbs-up"></i>
+        <p>Recommended</p>
+      </div>
+      <div class="filter">
+        <i class="fa-solid fa-lightbulb"></i>
+        <p>New</p>
+      </div>
+      <div class="filter">
+        <i class="fa-solid fa-bolt"></i>
+        <p>Fastest</p>
+      </div>
+      <div class="filter">
+        <i class="fa-solid fa-gem"></i>
+        <p>Luxury</p>
+      </div>
+      <div class="filter">
+        <i class="fa-solid fa-lightbulb"></i>
+        <p>New</p>
+      </div>
+      <div class="filter">
+        <i class="fa-solid fa-bolt"></i>
+        <p>Fastest</p>
+      </div>
+      <div class="filter">
+        <i class="fa-solid fa-gem"></i>
+        <p>Luxury</p>
+      </div>
+    </div>
+
+    <div class="form-check form-switch form-check-reverse end">
+      <label class="form-check-label toggle-label" for="flexSwitchCheckReverse">
+        Display total after taxes
+      </label>
+      <input
+        class="form-check-input toggle-btn"
+        type="checkbox"
+        id="flexSwitchCheckReverse"
+      />
+    </div>
+  </div>
+
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
+    <% for (let listing of allListings) { %>
+    <div class="col">
+      <a href="/listings/<%=listing._id%>" class="listing-card">
+        <div class="card">
+          <img
+            src="<%=listing.image.url%>"
+            class="card-img-top"
+            alt="listing"
+          />
+          <div class="card-img-overlay">Ritik</div>
+          <div class="card-body">
+            <b><%=listing.title%></b>
+            <h6>
+              &#8377;<%= (listing.price || 0).toLocaleString("en-IN") %>/day
+              <i class="tax-info"> +18% GST</i>
+            </h6>
+          </div>
+        </div>
+      </a>
+    </div>
+    <% } %>
+  </div>
+  <script>
+    let taxcalc = document.getElementById("flexSwitchCheckReverse");
+    let taxInfo = document.getElementsByClassName("tax-info");
+    taxcalc.addEventListener("click", () => {
+      for (let info of taxInfo) {
+        if (info.style.display != "inline") {
+          info.style.display = "inline";
+        } else {
+          info.style.display = "none";
+        }
+      }
+    });
+  </script>
+</body>

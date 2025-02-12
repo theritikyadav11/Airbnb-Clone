@@ -1,0 +1,41 @@
+<% layout("/Layouts/boilerplate") %>
+
+<body>
+  <div
+    class="container d-flex justify-content-center align-items-center"
+    style="min-height: 100vh"
+  >
+    <div
+      class="signup-container p-4 bg-white rounded shadow"
+      style="max-width: 450px; width: 100%"
+    >
+      <h2 class="text-center">Log in</h2>
+      <p class="text-center text-muted">Log in to continue</p>
+      <form action="/login" method="POST" class="needs-validation" novalidate>
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          <input
+            type="text"
+            class="form-control"
+            id="username"
+            name="username"
+            placeholder="Enter your username"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            name="password"
+            placeholder="Enter your password"
+            required
+          />
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Login</button>
+      </form>
+    </div>
+  </div>
+</body>
